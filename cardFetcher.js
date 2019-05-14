@@ -47116,26 +47116,31 @@ var cardData = {
     },
     "type": "expansion"
 }
+
 /*
 It should:
-    -   display card name
-    -   display card text
-    -   display card cost
-    -   display card image
-    -   display card frame (-> also artist/setNum/etc.)
-    -   display card border
+    -   return card name
+    -   return card text
+    -   return card cost
+    -   return multiverseId
+    then, it should also:
+        -   
 */
 
-const renderCardName = () => {
-    console.log(cardData.cards[0].name);
+const getCardName = () => {
+    return cardData.cards[0].name;
 };
 
-const renderCardText = () => {
-    console.log(cardData.cards[0].text);
+const getCardText = () => {
+    return cardData.cards[0].text;
 };
 
-const renderCardCost = () => {
-    console.log(cardData.cards[0].manaCost);
+const getCardCost = () => {
+    return cardData.cards[0].manaCost;
+};
+
+const getCardMultiverseId = () => {
+    return cardData.cards[0].multiverseId;
 };
 
 /* const renderCardFrame = () => {
@@ -47144,10 +47149,14 @@ const renderCardCost = () => {
 
 const renderCardBorder; */
 
-const renderCard = () => {
-    renderCardName();
-    renderCardCost();
-    renderCardText();
+const getCard = () => {
+    return {
+        cardName: getCardName(),
+        cardCost: getCardCost(),
+        cardText: getCardText(),
+        cardMultiverseId: getCardMultiverseId(),
+    };
 };
 
-renderCard();
+console.log(getCard());
+
