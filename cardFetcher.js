@@ -1,4 +1,4 @@
-var cardData = {
+const cardData = {
     "baseSetSize": 264,
     "block": "Guilds of Ravnica",
     "boosterV3": [
@@ -47117,6 +47117,10 @@ var cardData = {
     "type": "expansion"
 }
 
+const onlyMythicCardData = cardData.cards.filter(card => card.rarity === 'mythic');
+
+
+
 /*
 It should:
     -   return card name
@@ -47124,32 +47128,31 @@ It should:
     -   return card cost
     -   return multiverseId
     then, it should also:
-        -   
+        -   return a random card (using Math.random)
+        -   return a random card of a certain rarity (efficiently!)
+        -   return a booster pack of random cards with appropriate rarity quantities
 */
 
-const getCardName = () => {
-    return cardData.cards[0].name;
-};
 
-const getCardText = () => {
-    return cardData.cards[0].text;
-};
 
-const getCardCost = () => {
-    return cardData.cards[0].manaCost;
-};
-
-const getCardMultiverseId = () => {
-    return cardData.cards[0].multiverseId;
-};
-
-/* const renderCardFrame = () => {
+const getCard = (cardIndex = 0) => {
+    const cards = cardData.cards;
+    const getCardName = () => {
+        return cards[cardIndex].name;
+    };
     
-};
+    const getCardText = () => {
+        return cards[cardIndex].text;
+    };
+    
+    const getCardCost = () => {
+        return cards[cardIndex].manaCost;
+    };
+    
+    const getCardMultiverseId = () => {
+        return cards[cardIndex].multiverseId;
+    };
 
-const renderCardBorder; */
-
-const getCard = () => {
     return {
         cardName: getCardName(),
         cardCost: getCardCost(),
@@ -47158,5 +47161,11 @@ const getCard = () => {
     };
 };
 
-console.log(getCard());
+const getRandomCard = () => {
+    // select a random card from cardData, get index, call getCard() on it
+    const randomCardIndex = Math.floor(Math.random() * cardData.cards.length);
+    return getCard(randomCardIndex);
+}
 
+console.log(getCard());
+console.log(getRandomCard());
