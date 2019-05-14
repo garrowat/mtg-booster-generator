@@ -47130,8 +47130,6 @@ const cardDataByRarity = {
     common: onlyCommonCardData,
 };
 
-['mythic', 'rare', 'uncommon', 'common'].forEach(rarity => console.log(cardDataByRarity[rarity][0].name));
-
 /*
 It should:
     -   return card name
@@ -47174,12 +47172,20 @@ const getCard = (cardIndex = 0) => {
 
 const getRandomCard = (rarity) => {
     // select a random card from cardData, get index, call getCard() on it
-    const currentCardData = rarity == null
+    /* const currentCardData = rarity == null
     ? cardData
-    : cardDataByRarity[rarity];
-    const randomCardIndex = Math.floor(Math.random() * currentCardData.cards.length);
+    : cardDataByRarity[rarity]; */
+    let randomCardIndex = 0;
+    if (rarity == null) {
+        randomCardIndex = Math.floor(Math.random() * cardData.cards.length)
+    } else {
+        let randomCardIndexWithRarity = Math.floor(Math.random() * cardDataByRarity[rarity].length);
+        const randomCardName = cardDataByRarity[rarity][randomCardIndexWithRarity].name;
+        randomCardIndex = cardData.cards.findIndex(card => card.name === randomCardName);
+    }
     return getCard(randomCardIndex);
 }
 
 console.log(getCard());
 console.log(getRandomCard());
+['mythic', 'rare', 'uncommon', 'common'].forEach(rarity => console.log(getRandomCard(rarity)));
