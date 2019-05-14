@@ -1,3 +1,4 @@
+// Card data lives here at the top for now, War of the Spark only
 const cardData = {
     "baseSetSize": 264,
     "block": "Guilds of Ravnica",
@@ -47118,8 +47119,18 @@ const cardData = {
 }
 
 const onlyMythicCardData = cardData.cards.filter(card => card.rarity === 'mythic');
+const onlyRareCardData = cardData.cards.filter(card => card.rarity === 'rare');
+const onlyUncommonCardData = cardData.cards.filter(card => card.rarity === 'uncommon');
+const onlyCommonCardData = cardData.cards.filter(card => card.rarity === 'common');
 
+const cardDataByRarity = {
+    mythic: onlyMythicCardData,
+    rare: onlyRareCardData,
+    uncommon: onlyUncommonCardData,
+    common: onlyCommonCardData,
+};
 
+['mythic', 'rare', 'uncommon', 'common'].forEach(rarity => console.log(cardDataByRarity[rarity][0].name));
 
 /*
 It should:
@@ -47161,9 +47172,12 @@ const getCard = (cardIndex = 0) => {
     };
 };
 
-const getRandomCard = () => {
+const getRandomCard = (rarity) => {
     // select a random card from cardData, get index, call getCard() on it
-    const randomCardIndex = Math.floor(Math.random() * cardData.cards.length);
+    const currentCardData = rarity == null
+    ? cardData
+    : cardDataByRarity[rarity];
+    const randomCardIndex = Math.floor(Math.random() * currentCardData.cards.length);
     return getCard(randomCardIndex);
 }
 
