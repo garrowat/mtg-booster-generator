@@ -47118,7 +47118,12 @@ const cardData = {
     "type": "expansion"
 }
 
-const onlyMythicCardData = cardData.cards.filter(card => card.rarity === 'mythic');
+const cardDataByRarity = ['mythic', 'rare', 'uncommon', 'common'].reduce((result, rarity) => {
+    result[rarity] = cardData.cards.filter(card => card.rarity === rarity);
+    return result;
+}, {})
+
+/* const onlyMythicCardData = cardData.cards.filter(card => card.rarity === 'mythic');
 const onlyRareCardData = cardData.cards.filter(card => card.rarity === 'rare');
 const onlyUncommonCardData = cardData.cards.filter(card => card.rarity === 'uncommon');
 const onlyCommonCardData = cardData.cards.filter(card => card.rarity === 'common');
@@ -47128,7 +47133,7 @@ const cardDataByRarity = {
     rare: onlyRareCardData,
     uncommon: onlyUncommonCardData,
     common: onlyCommonCardData,
-};
+}; */
 
 /*
 It should:
