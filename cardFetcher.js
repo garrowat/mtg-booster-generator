@@ -47121,19 +47121,7 @@ const cardData = {
 const cardDataByRarity = ['mythic', 'rare', 'uncommon', 'common'].reduce((result, rarity) => {
     result[rarity] = cardData.cards.filter(card => card.rarity === rarity);
     return result;
-}, {})
-
-/* const onlyMythicCardData = cardData.cards.filter(card => card.rarity === 'mythic');
-const onlyRareCardData = cardData.cards.filter(card => card.rarity === 'rare');
-const onlyUncommonCardData = cardData.cards.filter(card => card.rarity === 'uncommon');
-const onlyCommonCardData = cardData.cards.filter(card => card.rarity === 'common');
-
-const cardDataByRarity = {
-    mythic: onlyMythicCardData,
-    rare: onlyRareCardData,
-    uncommon: onlyUncommonCardData,
-    common: onlyCommonCardData,
-}; */
+}, {});
 
 /*
 It should:
@@ -47146,8 +47134,6 @@ It should:
         -   return a random card of a certain rarity (efficiently!)
         -   return a booster pack of random cards with appropriate rarity quantities
 */
-
-
 
 const getCard = (cardIndex = 0) => {
     const cards = cardData.cards;
@@ -47177,19 +47163,40 @@ const getCard = (cardIndex = 0) => {
 
 const getRandomCard = (rarity) => {
     // select a random card from cardData, get index, call getCard() on it
-    /* const currentCardData = rarity == null
-    ? cardData
-    : cardDataByRarity[rarity]; */
     let randomCardIndex = 0;
     if (rarity == null) {
-        randomCardIndex = Math.floor(Math.random() * cardData.cards.length)
+        randomCardIndex = Math.floor(Math.random() * cardData.cards.length);
     } else {
         let randomCardIndexWithRarity = Math.floor(Math.random() * cardDataByRarity[rarity].length);
         const randomCardName = cardDataByRarity[rarity][randomCardIndexWithRarity].name;
         randomCardIndex = cardData.cards.findIndex(card => card.name === randomCardName);
     }
     return getCard(randomCardIndex);
-}
+};
+
+const getBooster = () => {
+    const getRareOrMythic = () => {
+        return getRandomCard(Math.random() > 0.16667 ? 'rare' : 'mythic');
+    };
+
+    const getThreeUncommons = () => {
+        let threeUncommons = {};
+        while (Object.keys(threeUncommons).length < 3) {
+            let card = getRandomCard('uncommon');
+            if (!threeUncommons.hasOwnProperty(card.name) {
+                threeUncommons
+            }
+        }
+    };
+
+    const getTenCommons = () => {
+
+    };
+
+    const booster = { getRareOrMythic, ...getThreeUncommons, ...getTenCommons };
+
+    return booster;
+};
 
 console.log(getCard());
 console.log(getRandomCard());
