@@ -47140,15 +47140,15 @@ const getCard = (cardIndex = 0) => {
     const getCardName = () => {
         return cards[cardIndex].name;
     };
-    
+
     const getCardText = () => {
         return cards[cardIndex].text;
     };
-    
+
     const getCardCost = () => {
         return cards[cardIndex].manaCost;
     };
-    
+
     const getCardMultiverseId = () => {
         return cards[cardIndex].multiverseId;
     };
@@ -47180,24 +47180,36 @@ const getBooster = () => {
     };
 
     const getThreeUncommons = () => {
-        let threeUncommons = {};
-        while (Object.keys(threeUncommons).length < 3) {
-            let card = getRandomCard('uncommon');
-            if (!threeUncommons.hasOwnProperty(card.name) {
-                threeUncommons
-            }
+        let threeUncommons = [];
+        let seen = [];
+        let card;
+        while (threeUncommons.length < 3) {
+            card = getRandomCard('uncommon');
+            console.log(card.cardName);
+            if (seen.includes(card.cardName)) continue; // no duplicates allowed in a pack
+            seen.push(card.cardName);
+            threeUncommons.push(card);
         }
+        return threeUncommons;
     };
 
     const getTenCommons = () => {
-
+        let tenCommons = [];
+        let seen = [];
+        let card;
+        while (tenCommons.length < 10) {
+            card = getRandomCard('common');
+            if (seen.includes(card.cardName)) continue; // no duplicates allowed in a pack
+            seen.push(card.cardName);
+            tenCommons.push(card);
+        }
+        return tenCommons;
     };
 
-    const booster = { getRareOrMythic, ...getThreeUncommons, ...getTenCommons };
-
-    return booster;
+    return [ getRareOrMythic(), ...getThreeUncommons(), ...getTenCommons() ];
 };
 
-console.log(getCard());
+/* console.log(getCard());
 console.log(getRandomCard());
-['mythic', 'rare', 'uncommon', 'common'].forEach(rarity => console.log(getRandomCard(rarity)));
+['mythic', 'rare', 'uncommon', 'common'].forEach(rarity => console.log(getRandomCard(rarity))); */
+console.log(getBooster());
